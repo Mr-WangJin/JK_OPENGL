@@ -1,18 +1,23 @@
 
 
-#SET(COMMON_LIST
-#	${PROJECT_SOURCE_DIR}/src/common/CommonFunctions.h
-#	${PROJECT_SOURCE_DIR}/src/common/CommonFunctions.cpp
-#)
-#SOURCE_GROUP(COMMON_SRCS FILES ${COMMON_LIST})
+SET(COMMON_LIST
+	${PROJECT_SOURCE_DIR}/src/common/jk_arcball.h
+	${PROJECT_SOURCE_DIR}/src/common/jk_arcball.cpp
+	${PROJECT_SOURCE_DIR}/src/common/jk_scene.h
+)
+SOURCE_GROUP(common FILES ${COMMON_LIST})
 
 
 IF(BUILD_DYNAMIC)
 
 MACRO(START_EXAMPLE)
 
-    INCLUDE_DIRECTORIES($ENV{OSG_HOME}/include)
-	LINK_DIRECTORIES($ENV{OSG_HOME}/lib)
+    INCLUDE_DIRECTORIES($ENV{GLFW_HOME}/include)
+	LINK_DIRECTORIES($ENV{GLFW_HOME}/lib)
+	INCLUDE_DIRECTORIES($ENV{GLEW_HOME}/include)
+	LINK_DIRECTORIES($ENV{GLEW_HOME}/lib/Release/Win32)
+	INCLUDE_DIRECTORIES($ENV{GLM_HOME}/include)
+
 	
 	FILE(GLOB source_file_list ${PROJECT_NAME}/*.cpp)
 	FILE(GLOB header_file_list ${PROJECT_NAME}/*.h)
@@ -21,18 +26,23 @@ MACRO(START_EXAMPLE)
 	SET(file_list 
 	${source_file_list}
 	${header_file_list}
+	${COMMON_LIST}
 	)
 
 	ADD_EXECUTABLE(${PROJECT_NAME} ${file_list})
 IF(WIN32)
 	TARGET_LINK_LIBRARIES(${PROJECT_NAME} 
-#		debug osgd.lib optimized osg.lib
+		debug glfw3.lib optimized glfw3.lib
+		debug glew32s.lib optimized glew32s.lib
+		debug opengl32.lib optimized opengl32.lib
+		debug glu32.lib optimized glu32.lib
+		glu32
 
 	)
 ENDIF(WIN32)
 if(UNIX)
 	TARGET_LINK_LIBRARIES(${PROJECT_NAME} 
-#		debug libosg.so optimized libosg.so
+		debug glfw3.so optimized glfw3.so
 
 	)
 ENDIF(UNIX)
