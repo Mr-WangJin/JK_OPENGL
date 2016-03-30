@@ -1,12 +1,22 @@
 
 
-SET(COMMON_LIST
-	${PROJECT_SOURCE_DIR}/src/common/jk_arcball.h
-	${PROJECT_SOURCE_DIR}/src/common/jk_arcball.cpp
-	${PROJECT_SOURCE_DIR}/src/common/jk_scene.h
-)
-SOURCE_GROUP(common FILES ${COMMON_LIST})
+#FILE(GLOB common_src_files ./common/*.*)
+#FILE(GLOB common_src_files ./common/*.cpp)
+#SET(COMMON_LIST
+#	${common_src_files}
+#	${PROJECT_SOURCE_DIR}/src/common/jk_arcball.h
+#	${PROJECT_SOURCE_DIR}/src/common/jk_arcball.cpp
+#	${PROJECT_SOURCE_DIR}/src/common/jk_scene.h
+#	${PROJECT_SOURCE_DIR}/src/common/tinycthread.h
+#	${PROJECT_SOURCE_DIR}/src/common/tinycthread.c
+#	${PROJECT_SOURCE_DIR}/src/common/jk_glsl_prog.h
+#	${PROJECT_SOURCE_DIR}/src/common/jk_glsl_prog.cpp
+#	${PROJECT_SOURCE_DIR}/src/common/jk_ogl.h
+#)
+#SOURCE_GROUP(common FILES ${COMMON_LIST})
 
+
+INCLUDE_DIRECTORIES($ENV{GLM_HOME}/include)
 
 IF(BUILD_DYNAMIC)
 
@@ -16,7 +26,9 @@ MACRO(START_EXAMPLE)
 	LINK_DIRECTORIES($ENV{GLFW_HOME}/lib)
 	INCLUDE_DIRECTORIES($ENV{GLEW_HOME}/include)
 	LINK_DIRECTORIES($ENV{GLEW_HOME}/lib/Release/Win32)
-	INCLUDE_DIRECTORIES($ENV{GLM_HOME}/include)
+	
+	INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/src/ingredients)
+	LINK_DIRECTORIES(${LIBRARY_OUTPUT_PATH}/Debug/)
 
 	
 	FILE(GLOB source_file_list ${PROJECT_NAME}/*.cpp)
@@ -26,7 +38,7 @@ MACRO(START_EXAMPLE)
 	SET(file_list 
 	${source_file_list}
 	${header_file_list}
-	${COMMON_LIST}
+	#${COMMON_LIST}
 	)
 
 	ADD_EXECUTABLE(${PROJECT_NAME} ${file_list})
@@ -36,8 +48,7 @@ IF(WIN32)
 		debug glew32s.lib optimized glew32s.lib
 		debug opengl32.lib optimized opengl32.lib
 		debug glu32.lib optimized glu32.lib
-		glu32
-
+		debug ingredientsd.lib optimized ingredients.lib
 	)
 ENDIF(WIN32)
 if(UNIX)
@@ -47,12 +58,14 @@ if(UNIX)
 	)
 ENDIF(UNIX)
 
+#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/shader DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 ENDMACRO(START_EXAMPLE)
 
 #MESSAGE(STATUS "This is additionan include path" ${CMAKE_INCLUDE_PATH})
 
+ADD_SUBDIRECTORY(ingredients)
 
-SET(PROJECT_NAME "particle01")
+SET(PROJECT_NAME "fire")
 START_EXAMPLE()
 
 #SET(PROJECT_NAME "cloud")
@@ -61,8 +74,8 @@ START_EXAMPLE()
 #SET(PROJECT_NAME "octree")
 #START_EXAMPLE()
 
-#SET(PROJECT_NAME "occlusion")
-#START_EXAMPLE()
+SET(PROJECT_NAME "temp")
+START_EXAMPLE()
 
 ENDIF()
 
