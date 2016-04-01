@@ -28,7 +28,7 @@ void SceneFire::initScene()
 
     glClearColor(1.0f,1.0f,1.0f,1.0f);
 
-    glPointSize(50.0f);
+    glPointSize(20.0f);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

@@ -14,9 +14,9 @@ out float StartTime; // To transform feedback
 out float Transp;    // To fragment shader
 
 uniform float Time;  // Simulation time
-uniform float H;     // Elapsed time between frames
-uniform vec3 Accel;  // Particle acceleration
-uniform float ParticleLifetime;  // Particle lifespan
+uniform float H;     // Elapsed time between frames	
+uniform vec3 Accel;  // Particle acceleration  (0.0f, 0.1f, 0.0f)
+uniform float ParticleLifetime;  // Particle lifespan (4.0f)
 
 uniform mat4 MVP;
 
