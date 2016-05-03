@@ -12,6 +12,7 @@
 #include "scenesmoke.h"
 #include "scenewave.h"
 
+
 #define WIN_WIDTH 800
 #define WIN_HEIGHT 600
 
@@ -21,11 +22,23 @@ GLFWwindow *window;
 string parseCLArgs(int argc, char ** argv);
 void printHelpInfo(const char *);
 
+void mouseEvent(GLFWwindow* pWin, int , int mouseActino, int)
+{
+	if (mouseActino ==GLFW_PRESS){
+
+	}else if (mouseActino == GLFW_RELEASE){
+
+	}
+
+}
+
 void initializeGL() {
   glDebugMessageCallback(GLUtils::debugCallback, NULL);
   glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, GL_TRUE);
   glDebugMessageInsert(GL_DEBUG_SOURCE_APPLICATION, GL_DEBUG_TYPE_MARKER, 0,
   GL_DEBUG_SEVERITY_NOTIFICATION, -1 , "Start debugging");
+
+  glfwSetMouseButtonCallback(window, mouseEvent);
 
     glClearColor(0.5f,0.5f,0.5f,1.0f);
     scene->initScene();
@@ -58,7 +71,8 @@ int main(int argc, char *argv[])
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+
 
 	// Open the window
 	string title = "Chapter 9 -- " + recipe;
@@ -92,7 +106,7 @@ int main(int argc, char *argv[])
 
 string parseCLArgs(int argc, char ** argv) {
 
-	scene = new SceneFire();
+	scene = new SceneSmoke();
 	return string("fire01");
 
 

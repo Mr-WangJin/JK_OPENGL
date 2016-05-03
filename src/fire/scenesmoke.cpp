@@ -30,7 +30,7 @@ void SceneSmoke::initScene()
 
     // Intel cards crash when using GL_PROGRAM_POINT_SIZE
     //  glEnable(GL_PROGRAM_POINT_SIZE);
-    glPointSize(10.0);
+    glPointSize(60.0);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -39,7 +39,7 @@ void SceneSmoke::initScene()
 
     initBuffers();
 
-    const char * texName = "../media/texture/smoke.bmp";
+    const char * texName = "../../src/media/texture/smoke.bmp";
     glActiveTexture(GL_TEXTURE0);
     BMPReader::loadTex(texName);
 
@@ -238,9 +238,9 @@ void SceneSmoke::resize(int w, int h)
 void SceneSmoke::compileAndLinkShader()
 {
   try {
-    prog.compileShader("shader/smoke.vs");
+    prog.compileShader("../../src/fire/shader/smoke.vs");
     //prog.compileShader("shader/pointsprite.gs");
-    prog.compileShader("shader/smoke.fs");
+    prog.compileShader("../../src/fire/shader/smoke.fs");
 
     //////////////////////////////////////////////////////
     // Setup the transform feedback (must be done before linking the program)

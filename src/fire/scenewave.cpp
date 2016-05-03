@@ -75,8 +75,8 @@ void SceneWave::resize(int w, int h)
 void SceneWave::compileAndLinkShader()
 {
 	try {
-		prog.compileShader("shader/wave.vs",GLSLShader::VERTEX);
-		prog.compileShader("shader/wave.fs",GLSLShader::FRAGMENT);
+		prog.compileShader("../../src/fire/shader/wave.vs",GLSLShader::VERTEX);
+		prog.compileShader("../../src/fire/shader/wave.fs",GLSLShader::FRAGMENT);
 
     	prog.link();
     	prog.use();
